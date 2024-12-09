@@ -7,7 +7,7 @@ from bleak.backends.characteristic import BleakGATTCharacteristic
 
 notification_characteristic = "0000ffe1-0000-1000-8000-00805f9b34fb"
 write_characteristic = "0000ffe1-0000-1000-8000-00805f9b34fb"
-device_addr = "D0:6D:9E:B2:F7:FD"
+device_addr = "D0:6D:9E:B2:F7:FD"#第一次运行需要在这里找到设备，然后填入
 
 action_tab = [
     # 大拇指           食指            中指            无名指        小指
@@ -25,7 +25,15 @@ class BLEController:
         
         # Initialize connection
         # self._connect()
-
+    async def find_device(self):
+        devices = await BleakScanner.discover()
+        for device in devices:
+            print("Device Name:", device.name)
+            print("Device Address:", device.address)
+        device = await BleakScanner.find_device_by_address(
+            self.device_addr, cb=dict(use_bdaddr=False)
+        )
+    
     async def _connect(self):
 
         # 先尝试停止所有正在进行的扫描
@@ -88,6 +96,7 @@ class BLEController:
 # Example usage
 async def main():
     controller = BLEController()
+    # await controller.find_device()#第一次运行需要在这里找到设备
     await controller._connect()
     await controller.send_data()
     await controller.disconnect()
