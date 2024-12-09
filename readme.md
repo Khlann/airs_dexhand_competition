@@ -1,3 +1,5 @@
+这是一个用于控制睿研手的代码
+
 运行之前，需配置以下环境
 ```
 conda create -n ry_dex python=3.10
