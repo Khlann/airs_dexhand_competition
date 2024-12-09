@@ -1,18 +1,18 @@
 import asyncio
 import struct
 from time import sleep
-import time
 from bleak import BleakClient, BleakScanner
 from bleak.backends.characteristic import BleakGATTCharacteristic 
-from pynput import keyboard
+
 
 notification_characteristic = "0000ffe1-0000-1000-8000-00805f9b34fb"
 write_characteristic = "0000ffe1-0000-1000-8000-00805f9b34fb"
 device_addr = "D0:6D:9E:B2:F7:FD"
 
 action_tab = [
-    [0, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095],
-    [3829, 3867, 3458, 4015, 4046, 4013, 4034, 3964, 4010, 4043, 3840, 3990, 867, 497, 887]
+    # 大拇指           食指            中指            无名指        小指
+    [4095, 4095, 4095, 0, 0, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095],
+    # [3829, 3867, 3458, 4015, 4046, 4013, 4034, 3964, 4010, 4043, 3840, 3990, 867, 497, 887]
 ]
 class BLEController:
     def __init__(self):
